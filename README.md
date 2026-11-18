@@ -11,9 +11,20 @@ Source for https://sushmitab93.github.io. GitHub Pages builds it with Jekyll aut
 
 ## Before you publish
 
-- `_config.yml`: add your email and LinkedIn URL.
-- Add your resume as `assets/Sushmita_Behera_Resume.pdf`.
+- `_config.yml`: paste your LinkedIn URL into `linkedin: ""`. The LinkedIn links stay hidden until you do.
+- Add your resume as `assets/Sushmita_Behera_Resume.pdf`. The Resume links appear automatically once the file is there.
 - `_projects/post-earnings-forecast.md`: fill in the "My contribution" box.
+
+## Pages
+
+| Page | File |
+|---|---|
+| Home (intro and 3 featured projects) | `index.html` |
+| Work (all projects) | `work.html` |
+| Experience | `experience.html` |
+| Skills | `skills.html` |
+| Writing | `writing.html` |
+| Each project | `_projects/*.md` |
 
 ## Add a project
 
@@ -22,7 +33,7 @@ Copy any file in `_projects/`, rename it, and edit the details at the top:
 | Field | What it's for |
 |---|---|
 | `order` | Position on the homepage and in previous/next links |
-| `featured` | `true` puts it in Selected work with an image; `false` puts it in More projects |
+| `featured` | `true` shows it on the homepage and at the top of the Work page with an image; `false` lists it under More projects |
 | `image` | Image for featured projects, stored in `assets/img/` |
 | `summary`, `problem`, `role`, `result`, `stack` | The project card and the summary box on its page |
 | `code`, `demo` | GitHub link, plus an optional demo link (`demo_label` changes its text) |
@@ -40,4 +51,4 @@ title: My post title
 Your post in Markdown.
 ```
 
-A Writing section appears on the homepage automatically once the first post exists.
+A Writing link appears in the menu automatically once the first post exists.

@@ -1,0 +1,23 @@
+---
+layout: default
+title: Writing
+section: writing
+permalink: /writing/
+---
+<header class="page-head">
+  <h1>Writing</h1>
+  <p class="page-lede">Notes on data, machine learning and insurance analytics.</p>
+</header>
+
+{% if site.posts.size > 0 %}
+<ul class="more">
+{% for post in site.posts %}
+  <li>
+    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+    <p class="stack">{{ post.date | date: "%B %Y" }}</p>
+  </li>
+{% endfor %}
+</ul>
+{% else %}
+<p>The first post is on its way.</p>
+{% endif %}

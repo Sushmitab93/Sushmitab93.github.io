@@ -11,14 +11,17 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
+  {% assign resume_file = site.static_files | where: "path", site.author.resume | first %}
+  {% assign section = page.section | default: page.collection %}
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-head">
     <a class="wordmark" href="{{ '/' | relative_url }}">Sushmita Behera</a>
     <nav aria-label="Main">
-      <a href="{{ '/#work' | relative_url }}">Work</a>
-      <a href="{{ '/#experience' | relative_url }}">Experience</a>
-      {% if site.posts.size > 0 %}<a href="{{ '/#writing' | relative_url }}">Writing</a>{% endif %}
-      <a href="{{ site.author.resume | relative_url }}">Resume</a>
+      <a href="{{ '/work/' | relative_url }}"{% if section == "work" or section == "projects" %} aria-current="page"{% endif %}>Work</a>
+      <a href="{{ '/experience/' | relative_url }}"{% if section == "experience" %} aria-current="page"{% endif %}>Experience</a>
+      <a href="{{ '/skills/' | relative_url }}"{% if section == "skills" %} aria-current="page"{% endif %}>Skills</a>
+      {% if site.posts.size > 0 %}<a href="{{ '/writing/' | relative_url }}"{% if section == "writing" or section == "posts" %} aria-current="page"{% endif %}>Writing</a>{% endif %}
+      {% if resume_file %}<a href="{{ site.author.resume | relative_url }}">Resume</a>{% endif %}
     </nav>
   </header>
 
@@ -31,9 +34,9 @@
       <p class="foot-line">Open to data science, ML, and BI roles in the Toronto area, in office or hybrid.</p>
       <ul class="contact">
         <li><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
-        <li><a href="{{ site.author.linkedin }}">LinkedIn</a></li>
+        {% if site.author.linkedin != "" %}<li><a href="{{ site.author.linkedin }}">LinkedIn</a></li>{% endif %}
         <li><a href="{{ site.author.github }}">GitHub</a></li>
-        <li><a href="{{ site.author.resume | relative_url }}">Resume (PDF)</a></li>
+        {% if resume_file %}<li><a href="{{ site.author.resume | relative_url }}">Resume (PDF)</a></li>{% endif %}
       </ul>
     </div>
   </footer>

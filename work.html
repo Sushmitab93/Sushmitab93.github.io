@@ -1,0 +1,51 @@
+---
+layout: default
+title: Work
+section: work
+permalink: /work/
+---
+{% assign sorted = site.projects | sort: "order" %}
+
+<header class="page-head">
+  <h1>Work</h1>
+  <p class="page-lede">Machine learning, NLP and data engineering projects. Each has a short case study and the full code on GitHub.</p>
+</header>
+
+<section aria-labelledby="featured-h">
+  <h2 id="featured-h" class="visually-hidden">Featured projects</h2>
+  <ol class="featured">
+  {% for p in sorted %}{% if p.featured %}
+    <li class="feature">
+      <a class="feature-img" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
+        <img src="{{ p.image | relative_url }}" alt="" loading="lazy">
+      </a>
+      <div class="feature-body">
+        <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+        <p>{{ p.summary }}</p>
+        <p class="result">{{ p.result }}</p>
+        <p class="stack">{{ p.stack | join: ", " }}</p>
+        <p class="actions">
+          <a class="btn" href="{{ p.url | relative_url }}">Read case study</a>
+          <a class="btn quiet" href="{{ p.code }}">Code</a>
+          {% if p.demo %}<a class="btn quiet" href="{{ p.demo }}">{{ p.demo_label | default: "Live demo" }}</a>{% endif %}
+        </p>
+      </div>
+    </li>
+  {% endif %}{% endfor %}
+  </ol>
+</section>
+
+<section aria-labelledby="more-h">
+  <h2 id="more-h" class="more-h">More projects</h2>
+  <ul class="more">
+  {% for p in sorted %}{% unless p.featured %}
+    <li>
+      <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
+      <p>{{ p.summary }}</p>
+      <p class="result">{{ p.result }}</p>
+      <p class="stack">{{ p.stack | join: ", " }}</p>
+      <p class="links"><a href="{{ p.url | relative_url }}">Case study</a> <a href="{{ p.code }}">Code</a></p>
+    </li>
+  {% endunless %}{% endfor %}
+  </ul>
+</section>

@@ -12,9 +12,11 @@ layout: default
       and AI at Ontario Tech, I build machine learning models, NLP systems and data
       pipelines, with the same focus on what a number means for the business.
     </p>
+    {% assign resume_file = site.static_files | where: "path", site.author.resume | first %}
     <p class="actions">
-      <a class="btn" href="{{ site.author.resume | relative_url }}">Download resume</a>
-      <a class="btn quiet" href="{{ site.author.linkedin }}">LinkedIn</a>
+      <a class="btn" href="{{ '/work/' | relative_url }}">See my work</a>
+      {% if resume_file %}<a class="btn quiet" href="{{ site.author.resume | relative_url }}">Download resume</a>{% endif %}
+      {% if site.author.linkedin != "" %}<a class="btn quiet" href="{{ site.author.linkedin }}">LinkedIn</a>{% endif %}
       <a class="btn quiet" href="{{ site.author.github }}">GitHub</a>
     </p>
   </div>
@@ -52,9 +54,11 @@ layout: default
   </figure>
 </section>
 
-<section class="work" id="work" aria-labelledby="work-h">
-  <h2 id="work-h">Selected work</h2>
-  <p class="section-intro">Three projects in depth. Each has a short case study and the full code.</p>
+<section class="work" aria-labelledby="work-h">
+  <div class="section-head">
+    <h2 id="work-h">Selected work</h2>
+    <a class="see-all" href="{{ '/work/' | relative_url }}">See all {{ site.projects.size }} projects</a>
+  </div>
 
   <ol class="featured">
   {% for p in sorted %}{% if p.featured %}
@@ -77,75 +81,5 @@ layout: default
   {% endif %}{% endfor %}
   </ol>
 
-  <h2 class="more-h">More projects</h2>
-  <ul class="more">
-  {% for p in sorted %}{% unless p.featured %}
-    <li>
-      <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
-      <p>{{ p.summary }}</p>
-      <p class="stack">{{ p.stack | join: ", " }}</p>
-      <p class="links"><a href="{{ p.url | relative_url }}">Case study</a> <a href="{{ p.code }}">Code</a></p>
-    </li>
-  {% endunless %}{% endfor %}
-  </ul>
+  <p class="actions center-end"><a class="btn" href="{{ '/work/' | relative_url }}">See all projects</a></p>
 </section>
-
-<section class="experience" id="experience" aria-labelledby="exp-h">
-  <h2 id="exp-h">Experience</h2>
-  <ol class="timeline">
-    <li>
-      <p class="when">2025 to 2026</p>
-      <div>
-        <h3>Master’s in Business Analytics and AI, Ontario Tech University</h3>
-        <p>Machine learning, deep learning, NLP and AI programming (LLMs, RAG, fine-tuning).
-          Capstone: multimodal forecasting of post-earnings stock movement.</p>
-      </div>
-    </li>
-    <li>
-      <p class="when">2021 to 2025</p>
-      <div>
-        <h3>Lead Specialist (CAT Systems Analyst), Gallagher</h3>
-        <p>Reinsurance catastrophe modeling. Part of the team that built Gaia, an internal
-          platform automating data preparation, import, RMS-to-AIR conversion and model runs,
-          cutting manual processing by 35%. I tested cross-platform conversions, mapped
-          modifier and reinsurance structure tables, wrote validation rules, and optimized
-          SQL Server scripts for reporting, improving efficiency by 8 to 10%.</p>
-      </div>
-    </li>
-    <li>
-      <p class="when">2016 to 2021</p>
-      <div>
-        <h3>Senior Analyst, AIG Analytics</h3>
-        <p>Modeled 200+ property accounts across all perils in RMS and AIR, compared renewals
-          against prior results and loss experience, and fed results into pricing and
-          write-or-renew decisions. Helped cut account turnaround from 6 days to 2, built
-          Power BI dashboards for team performance, and trained 6+ analysts.</p>
-      </div>
-    </li>
-  </ol>
-</section>
-
-<section class="skills" aria-labelledby="skills-h">
-  <h2 id="skills-h">Tools I use</h2>
-  <dl class="skill-groups">
-    <div><dt>Data and BI</dt><dd>SQL Server, Power BI (DAX, data modeling), Excel (Power Query, pivot tables), pandas, polars</dd></div>
-    <div><dt>Machine learning</dt><dd>scikit-learn, XGBoost, PyTorch, TensorFlow/Keras, TabNet, linear and logistic regression, clustering, anomaly detection</dd></div>
-    <div><dt>NLP and LLMs</dt><dd>Hugging Face Transformers (DistilBERT, FinBERT), LangChain, Chroma, RAG, Groq, Ollama</dd></div>
-    <div><dt>Data engineering</dt><dd>Kafka, PySpark, MongoDB, Docker, AWS S3, Delta Lake, Streamlit, Git</dd></div>
-    <div><dt>Insurance</dt><dd>RMS and AIR catastrophe models, exposure data, geocoding, reinsurance program structures</dd></div>
-  </dl>
-</section>
-
-{% if site.posts.size > 0 %}
-<section class="writing" id="writing" aria-labelledby="writing-h">
-  <h2 id="writing-h">Writing</h2>
-  <ul class="more">
-  {% for post in site.posts %}
-    <li>
-      <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-      <p class="stack">{{ post.date | date: "%B %Y" }}</p>
-    </li>
-  {% endfor %}
-  </ul>
-</section>
-{% endif %}
