@@ -13,7 +13,7 @@ role: Capstone project, team of three, working together across every stage. Onta
 result: Backtested Sharpe ratio of 2.3 over five years of walk-forward testing, before trading costs
 stack: [Python, Polars, TA-Lib, FinBERT, PyTorch, TabNet, scikit-learn, XGBoost, Optuna, AWS S3, Delta Lake]
 code: https://github.com/Sushmitab93/Post-Earnings-Forecast
-demo: https://richard-pears.dev/pead-report/
+demo: https://sushmitab93.github.io/Post-Earnings-Forecast/
 demo_label: Interactive report
 ---
 
