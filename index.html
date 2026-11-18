@@ -18,15 +18,13 @@ layout: default
       <div class="email-pop" id="email-pop" hidden>
         <p class="email-addr">{{ site.author.email }}</p>
         <div class="email-actions">
-          <button type="button" class="btn" id="email-copy" data-email="{{ site.author.email }}">Copy</button>
-          <a class="btn quiet" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to={{ site.author.email }}" target="_blank" rel="noopener">Open in Gmail</a>
-          <a class="btn quiet" href="mailto:{{ site.author.email }}">Use mail app</a>
+          <button type="button" class="btn" id="email-copy" data-email="{{ site.author.email }}">Copy email</button>
         </div>
         <p class="email-status" id="email-status" role="status"></p>
       </div>
     </li>
     {% if site.author.linkedin != "" %}<li><a class="round-btn" href="{{ site.author.linkedin }}" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10.5V16"/><path d="M8 7.6v.01" stroke-width="2.6"/><path d="M12 16v-5.5"/><path d="M12 13.2a2.6 2.6 0 0 1 5 0V16"/></svg>
       <span>LinkedIn</span>
     </a></li>{% endif %}
     <li><a class="round-btn" href="{{ site.author.github }}" target="_blank" rel="noopener">
@@ -44,7 +42,7 @@ layout: default
     <div class="nb-out" id="nb-out">
       <span class="nb-label">Out[1]:</span>
       <table>
-        <tr><th scope="row">experience</th><td>9 years with large, complex datasets</td></tr>
+        <tr><th scope="row">experience</th><td>9 years in data analysis and model validation</td></tr>
         <tr><th scope="row">builds</th><td>ML models, NLP and RAG systems, data pipelines, BI dashboards</td></tr>
         <tr><th scope="row">core tools</th><td>Python, SQL, PyTorch, PySpark, Power BI</td></tr>
         <tr><th scope="row">location</th><td>Toronto area</td></tr>
@@ -54,40 +52,6 @@ layout: default
   </figure>
 </section>
 
-<section class="about" aria-labelledby="about-h">
-  <div class="about-left">
-    <h2 id="about-h" class="big-h">Question it<span class="acc">.</span><br>Build it<span class="acc">.</span></h2>
-    <div class="portrait">
-      {% if site.author.photo and site.author.photo != "" %}
-        <img src="{{ site.author.photo | relative_url }}" alt="Photo of Sushmita Behera">
-      {% else %}
-        <span aria-hidden="true">SB</span>
-      {% endif %}
-    </div>
-  </div>
-  <div class="about-right">
-    <p>For nine years I worked with large, complex datasets where a small error could change an expensive decision. I checked the data, modeled it, and explained to decision makers why a result moved.</p>
-    <p>That habit of asking whether a number is right is what I bring to machine learning. Since my Master’s in Business Analytics and AI, I’ve built forecasting models, NLP and RAG systems, and streaming data pipelines on finance, retail and disaster data.</p>
-    <p><a class="text-link" href="{{ '/experience/' | relative_url }}">See my experience</a></p>
-    <div class="tool-groups" aria-label="Tools I use">
-      {% for g in site.data.tools %}
-      <div class="tool-group">
-        <p class="group-name">{{ g.group }}</p>
-        <ul class="logo-tiles">
-          {% for t in g.items %}
-          <li title="{{ t.name }}">
-            {% if t.path %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{ t.path }}"/></svg>
-            {% else %}<span class="abbr" aria-hidden="true">{{ t.abbr }}</span>{% endif %}
-            <span class="tile-name">{{ t.name }}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-
 {% assign sorted = site.projects | sort: "order" %}
 <section class="proj" aria-labelledby="proj-h">
   <h2 id="proj-h" class="big-h center">Featured projects<span class="acc">.</span></h2>
@@ -95,7 +59,7 @@ layout: default
   <ul class="proj-grid">
     {% for p in sorted %}{% if p.featured %}
     <li class="proj-card">
-      <a class="proj-img" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true"><img src="{{ p.image | relative_url }}" alt="" loading="lazy"></a>
+      <a class="proj-img" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true"><img src="{{ p.thumb | default: p.image | relative_url }}" alt="" loading="lazy"></a>
       <div class="proj-body">
         <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
         <p class="proj-result">{{ p.result }}</p>
@@ -108,9 +72,32 @@ layout: default
   <p class="center"><a class="btn" href="{{ '/projects/' | relative_url }}">See all {{ site.projects.size }} projects</a></p>
 </section>
 
+<section class="about{% if site.author.photo != "" %} has-photo{% endif %}" aria-labelledby="about-h">
+  <div class="about-left">
+    <h2 id="about-h" class="big-h">Question it<span class="acc">.</span><br>Build it<span class="acc">.</span></h2>
+    {% if site.author.photo != "" %}
+    <div class="portrait"><img src="{{ site.author.photo | relative_url }}" alt="Photo of Sushmita Behera"></div>
+    {% endif %}
+  </div>
+  <div class="about-right">
+    <p>For nine years I worked with large, complex datasets where a small error could change an expensive decision. I checked the data, modeled it, and explained to decision makers why a result moved.</p>
+    <p>That habit of asking whether a number is right is what I bring to machine learning. Since my Master’s in Business Analytics and AI, I’ve built forecasting models, NLP and RAG systems, and streaming data pipelines on finance, retail and disaster data.</p>
+    <ul class="logo-row" aria-label="Core tools">
+      {% for g in site.data.tools %}{% for t in g.items %}{% if t.core %}
+      <li title="{{ t.name }}">
+        {% if t.path %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{ t.path }}"/></svg>
+        {% else %}<span class="abbr" aria-hidden="true">{{ t.abbr }}</span>{% endif %}
+        <span class="tile-name">{{ t.name }}</span>
+      </li>
+      {% endif %}{% endfor %}{% endfor %}
+    </ul>
+    <p class="about-links"><a class="text-link" href="{{ '/skills/' | relative_url }}">See all skills</a><a class="text-link" href="{{ '/experience/' | relative_url }}">See my experience</a></p>
+  </div>
+</section>
+
 <section class="journey" aria-labelledby="journey-h">
   <h2 id="journey-h" class="big-h center">My journey<span class="acc">.</span></h2>
-  <p class="section-sub center">Nine years in data, then a Master’s to build the models myself.</p>
+  <p class="section-sub center">From analysing data to building the models.</p>
   <ol class="track">
     {% for j in site.data.journey %}
     <li class="track-item {% cycle 'left', 'right' %} kind-{{ j.kind | downcase }}">

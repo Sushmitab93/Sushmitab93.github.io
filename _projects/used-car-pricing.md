@@ -8,7 +8,7 @@ summary: >-
   records, flags listings whose price looks unreliable, and forecasts price trends.
 problem: Is a used car listing priced fairly, and can its price be trusted?
 role: Data cleaning, feature engineering, modeling and forecasting
-result: Price model R² of 0.833 (RMSE $7,847); trust model accuracy of 97.3%
+result: Price model R² of 0.833 (RMSE $7,847) on 5.6 million listings; flags the 2.7% priced unusually far from fair value
 stack: [Python, pandas, statsmodels, scikit-learn, Matplotlib, Seaborn]
 code: https://github.com/Sushmitab93/UsedCarPricePrediction
 ---
@@ -41,24 +41,32 @@ residuals for non-linearity.
 ![Actual vs. predicted price]({{ '/assets/img/car_actual_vs_predicted.png' | relative_url }})
 *Actual against predicted price on the validation set.*
 
-**2. Trust model.** A logistic regression predicts a trust flag for each
-listing, based on how far its price sits from what the model expects within its
-segment.
+**2. Trust flag.** Each listing's price is compared with the model's fair
+value. A listing is flagged as unreliable when its gap is more than two
+standard deviations from what's normal for its vehicle segment. That flagged
+**2.7% of listings** (30,614 of about 1.13 million in the validation set).
 
 ![Predicted vs. actual price colored by trust score]({{ '/assets/img/car_trust.png' | relative_url }})
-*Listings far from the line get low trust scores.*
+*Listings far from the line are the ones flagged as unreliable.*
+
+I also fit a logistic regression to predict the flag from vehicle attributes
+alone. Its accuracy (97.3%) matched the share of trusted listings exactly, so
+it was effectively predicting "trusted" every time. Vehicle attributes alone
+can't tell you whether a listing is mispriced; the price gap itself is the
+signal.
 
 **3. Forecasting.** Holt's linear trend model forecasts the median used car
 price three years ahead, to help dealers anticipate market shifts.
 
 ## Results
 
-| Model | Result |
+| Output | Result |
 |---|---|
 | Price model | R² = 0.833, RMSE = $7,847 |
-| Trust model | 97.3% accuracy |
+| Listings flagged as unreliable | 2.7% |
 
 ## What I would do next
 
 - Try gradient-boosted trees to capture the non-linearity the residuals showed
-- Validate the trust flag against listings known to be mispriced
+- Validate the flag against listings known to be mispriced
+- Rebuild the trust model with class weighting and listing-level features (description, seller history) so it can predict mispricing before a price is known

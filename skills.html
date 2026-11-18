@@ -9,6 +9,24 @@ permalink: /skills/
   <p class="page-lede">Tools I’ve used at work and in my projects. Python and machine learning come from my Master’s projects; SQL, Power BI and catastrophe modeling come from industry.</p>
 </header>
 
+<div class="tool-groups" aria-label="Tools by area">
+  {% for g in site.data.tools %}
+  <div class="tool-group">
+    <h2 class="group-name">{{ g.group }}</h2>
+    <ul class="logo-tiles">
+      {% for t in g.items %}
+      <li title="{{ t.name }}">
+        {% if t.path %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{ t.path }}"/></svg>
+        {% else %}<span class="abbr" aria-hidden="true">{{ t.abbr }}</span>{% endif %}
+        <span class="tile-name">{{ t.name }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+</div>
+
+<h2 class="sub-h">Everything I use</h2>
 <dl class="skill-groups">
   <div><dt>Data and BI</dt><dd>SQL Server, Power BI (DAX, data modeling), Excel (Power Query, pivot tables), pandas, polars</dd></div>
   <div><dt>Machine learning</dt><dd>scikit-learn, XGBoost, PyTorch, TensorFlow/Keras, TabNet, linear and logistic regression, clustering, anomaly detection, time series forecasting</dd></div>

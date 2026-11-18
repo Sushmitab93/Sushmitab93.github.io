@@ -2,6 +2,7 @@
 title: Product review insights with sentiment analysis and RAG
 order: 3
 featured: true
+thumb: /assets/img/thumb_absa.png
 image: /assets/img/absa_rag_answer.png
 summary: >-
   An NLP system that reads Amazon electronics reviews sentence by sentence,

@@ -2,16 +2,17 @@
 title: Forecasting post-earnings stock movement
 order: 1
 featured: true
+thumb: /assets/img/thumb_pead.png
 image: /assets/img/pead_drift.png
 summary: >-
   A multimodal machine learning framework that predicts how far S&P 500 stocks
   move in the two weeks after earnings, from 24,000+ earnings events, then turns
   the predictions into a backtested trading strategy. Capstone project, team of three.
 problem: Can earnings-time data identify which stocks will keep drifting after an earnings announcement?
-role: Capstone team member (team of 3), Ontario Tech MBAI 5600G, Summer 2026. Advisor, Prof. Amin Ibrahim
+role: Capstone project, team of three, working together across every stage. Ontario Tech MBAI 5600G, Summer 2026. Advisor, Prof. Amin Ibrahim
 result: Backtested Sharpe ratio of 2.3 over five years of walk-forward testing, before trading costs
 stack: [Python, Polars, TA-Lib, FinBERT, PyTorch, TabNet, scikit-learn, XGBoost, Optuna, AWS S3, Delta Lake]
-code: https://github.com/Richard-X46/Post-Earnings-Forecast
+code: https://github.com/Sushmitab93/Post-Earnings-Forecast
 demo: https://richard-pears.dev/pead-report/
 demo_label: Interactive report
 ---
@@ -138,9 +139,3 @@ choosing for them.
 - Run a monitored paper-trading pilot, not live capital, until trading costs are included.
 - Prefer TabNet if decisions need to be explained, since it shows what drives each prediction.
 - Redefine the target, or add intraday data, so the models learn from earnings content rather than mostly from volatility.
-
-## My contribution
-
-<p class="todo">TODO: Describe the parts you personally owned, in two or three sentences
-(for example, which data sources, models, analysis or report sections were yours).
-Delete this box when you're done.</p>
