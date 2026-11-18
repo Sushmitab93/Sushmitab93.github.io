@@ -1,49 +1,101 @@
 ---
 layout: default
 ---
-{% assign sorted = site.projects | sort: "order" %}
+{% assign resume_file = site.static_files | where: "path", site.author.resume | first %}
 
-<section class="hero">
-  <div class="hero-text">
-    <h1>A number can look perfectly reasonable and still be wrong. I find out why.</h1>
-    <p class="hero-sub">Nine years turning complex data into decisions. Now building machine learning models, NLP systems and data pipelines.</p>
-    {% assign resume_file = site.static_files | where: "path", site.author.resume | first %}
-    <p class="actions">
-      <a class="btn" href="{{ '/projects/' | relative_url }}">See my projects</a>
-      {% if resume_file %}<a class="btn quiet" href="{{ site.author.resume | relative_url }}">Download resume</a>{% endif %}
-      {% if site.author.linkedin != "" %}<a class="btn quiet" href="{{ site.author.linkedin }}">LinkedIn</a>{% endif %}
-      <a class="btn quiet" href="{{ site.author.github }}">GitHub</a>
-    </p>
-  </div>
+<section class="hero" id="hero">
+  <div class="hero-halo" aria-hidden="true"></div>
+  <h1 class="hero-name">Sushmita Behera</h1>
+  <p class="hero-role">Data Scientist and Analyst</p>
+  <p class="hero-line">A number can look perfectly reasonable and still be wrong. I find out why.</p>
 
+  <ul class="round-links" aria-label="Contact and profiles">
+    <li><a href="mailto:{{ site.author.email }}" aria-label="Email {{ site.author.email }}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      <span>Email</span>
+    </a></li>
+    {% if site.author.linkedin != "" %}<li><a href="{{ site.author.linkedin }}" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+      <span>LinkedIn</span>
+    </a></li>{% endif %}
+    <li><a href="{{ site.author.github }}" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2.5"/></svg>
+      <span>GitHub</span>
+    </a></li>
+    {% if resume_file %}<li><a href="{{ site.author.resume | relative_url }}" aria-label="Resume (PDF)">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg>
+      <span>Resume</span>
+    </a></li>{% endif %}
+  </ul>
+
+  <figure class="nb-cell" aria-label="Profile summary, shown as a notebook cell">
+    <div class="nb-in"><span class="nb-label">In [1]:</span><code><span id="nb-code" data-code="sushmita.describe()">sushmita.describe()</span><span class="caret" aria-hidden="true"></span></code></div>
+    <div class="nb-out" id="nb-out">
+      <span class="nb-label">Out[1]:</span>
+      <table>
+        <tr><th scope="row">experience</th><td>9 years with large, complex datasets</td></tr>
+        <tr><th scope="row">builds</th><td>ML models, NLP and RAG systems, data pipelines, BI dashboards</td></tr>
+        <tr><th scope="row">core tools</th><td>Python, SQL, PyTorch, PySpark, Power BI</td></tr>
+        <tr><th scope="row">location</th><td>Toronto area</td></tr>
+        <tr><th scope="row">status</th><td class="ok">open to data science, ML and BI roles</td></tr>
+      </table>
+    </div>
+  </figure>
 </section>
 
-<section class="work" aria-labelledby="work-h">
-  <div class="section-head">
-    <h2 id="work-h">Featured projects</h2>
-    <a class="see-all" href="{{ '/projects/' | relative_url }}">See all {{ site.projects.size }} projects</a>
+<section class="about" aria-labelledby="about-h">
+  <div class="about-left">
+    <h2 id="about-h" class="big-h">Question it<span class="acc">.</span><br>Build it<span class="acc">.</span></h2>
+    <div class="portrait">
+      {% if site.author.photo and site.author.photo != "" %}
+        <img src="{{ site.author.photo | relative_url }}" alt="Photo of Sushmita Behera">
+      {% else %}
+        <span aria-hidden="true">SB</span>
+      {% endif %}
+    </div>
   </div>
+  <div class="about-right">
+    <p>For nine years I worked with large, complex datasets where a small error could change an expensive decision. I checked the data, modeled it, and explained to decision makers why a result moved.</p>
+    <p>That habit of asking whether a number is right is what I bring to machine learning. Since my Master’s in Business Analytics and AI, I’ve built forecasting models, NLP and RAG systems, and streaming data pipelines on finance, retail and disaster data.</p>
+    <p><a class="text-link" href="{{ '/experience/' | relative_url }}">See my experience</a></p>
+    <div class="tool-groups" aria-label="Tools I use">
+      {% for g in site.data.tools %}
+      <div class="tool-group">
+        <p class="group-name">{{ g.group }}</p>
+        <ul class="logo-tiles">
+          {% for t in g.items %}
+          <li title="{{ t.name }}">
+            {% if t.path %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="{{ t.path }}"/></svg>
+            {% else %}<span class="abbr" aria-hidden="true">{{ t.abbr }}</span>{% endif %}
+            <span class="tile-name">{{ t.name }}</span>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
 
-  <ol class="featured">
-  {% for p in sorted %}{% if p.featured %}
-    <li class="feature">
-      <a class="feature-img" href="{{ p.url | relative_url }}" tabindex="-1" aria-hidden="true">
-        <img src="{{ p.image | relative_url }}" alt="" loading="lazy">
-      </a>
-      <div class="feature-body">
-        <h3><a href="{{ p.url | relative_url }}">{{ p.title }}</a></h3>
-        <p>{{ p.summary }}</p>
-        <p class="result">{{ p.result }}</p>
-        <p class="stack">{{ p.stack | join: ", " }}</p>
-        <p class="actions">
-          <a class="btn" href="{{ p.url | relative_url }}">Read case study</a>
-          <a class="btn quiet" href="{{ p.code }}">Code</a>
-          {% if p.demo %}<a class="btn quiet" href="{{ p.demo }}">{{ p.demo_label | default: "Live demo" }}</a>{% endif %}
-        </p>
+<section class="journey" aria-labelledby="journey-h">
+  <h2 id="journey-h" class="big-h center">My journey<span class="acc">.</span></h2>
+  <p class="journey-key center"><span class="key-dot work"></span>Work <span class="key-dot project"></span>Project</p>
+  <ol class="track">
+    {% for j in site.data.journey %}
+    <li class="track-item {% cycle 'left', 'right' %} kind-{{ j.kind | downcase }}">
+      <span class="track-dot" aria-hidden="true"></span>
+      <div class="track-side">
+        <p class="period">{{ j.period }}</p>
+        <a class="track-card" href="{{ j.link | relative_url }}">
+          <p class="context"><span class="kind">{{ j.kind }}</span>{{ j.context }}</p>
+          <h3>{{ j.title }}</h3>
+          <ul class="tags">{% for t in j.tags %}<li>{{ t }}</li>{% endfor %}</ul>
+          <p class="summary">{{ j.summary }}</p>
+          <span class="card-cta">{{ j.link_label }}</span>
+        </a>
       </div>
     </li>
-  {% endif %}{% endfor %}
+    {% endfor %}
   </ol>
-
-  <p class="actions center-end"><a class="btn" href="{{ '/projects/' | relative_url }}">See all projects</a></p>
+  <p class="center"><a class="btn" href="{{ '/projects/' | relative_url }}">See all projects</a></p>
 </section>

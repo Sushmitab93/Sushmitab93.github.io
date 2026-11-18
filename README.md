@@ -15,6 +15,18 @@ Source for https://sushmitab93.github.io. GitHub Pages builds it with Jekyll aut
 - Add your resume as `assets/Sushmita_Behera_Resume.pdf`. The Resume links appear automatically once the file is there.
 - `_projects/post-earnings-forecast.md`: fill in the "My contribution" box.
 
+## Homepage sections
+
+| Section | Where to edit |
+|---|---|
+| Name, role, typing lines in the code window | `index.html` (the `data-lines` list holds the typing phrases) |
+| About text and photo | `index.html`; set `photo:` in `_config.yml` to show your photo instead of initials |
+| Tool logos | `_data/tools.yml` |
+| My journey timeline | `_data/journey.yml` (newest first; cards alternate left and right automatically) |
+| Contact form | Opens the visitor's email app addressed to the `email` in `_config.yml` |
+
+The light/dark switch is in the header. The site follows the visitor's system setting until they choose.
+
 ## Pages
 
 | Page | File |

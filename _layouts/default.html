@@ -1,13 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
   <meta name="description" content="{% if page.summary %}{{ page.summary }}{% else %}{{ site.description }}{% endif %}">
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (!t) t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
 </head>
 <body>
@@ -15,30 +23,38 @@
   {% assign section = page.section | default: page.collection %}
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-head">
-    <a class="wordmark" href="{{ '/' | relative_url }}">Sushmita Behera</a>
-    <nav aria-label="Main">
-      <a href="{{ '/projects/' | relative_url }}"{% if section == "projects" %} aria-current="page"{% endif %}>Projects</a>
-      <a href="{{ '/experience/' | relative_url }}"{% if section == "experience" %} aria-current="page"{% endif %}>Experience</a>
-      <a href="{{ '/skills/' | relative_url }}"{% if section == "skills" %} aria-current="page"{% endif %}>Skills</a>
-      {% if site.posts.size > 0 %}<a href="{{ '/writing/' | relative_url }}"{% if section == "writing" or section == "posts" %} aria-current="page"{% endif %}>Writing</a>{% endif %}
-      {% if resume_file %}<a href="{{ site.author.resume | relative_url }}">Resume</a>{% endif %}
-    </nav>
+    <div class="head-inner">
+      <a class="wordmark" href="{{ '/' | relative_url }}">Sushmita Behera</a>
+      <nav aria-label="Main">
+        <a href="{{ '/projects/' | relative_url }}"{% if section == "projects" %} aria-current="page"{% endif %}>Projects</a>
+        <a href="{{ '/experience/' | relative_url }}"{% if section == "experience" %} aria-current="page"{% endif %}>Experience</a>
+        <a href="{{ '/skills/' | relative_url }}"{% if section == "skills" %} aria-current="page"{% endif %}>Skills</a>
+        {% if site.posts.size > 0 %}<a href="{{ '/writing/' | relative_url }}"{% if section == "writing" or section == "posts" %} aria-current="page"{% endif %}>Writing</a>{% endif %}
+        {% if resume_file %}<a href="{{ site.author.resume | relative_url }}">Resume</a>{% endif %}
+      </nav>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme">
+        <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+      </button>
+    </div>
   </header>
 
   <main id="main">
     {{ content }}
   </main>
 
-  <footer class="site-foot" id="contact">
+  <footer class="site-foot">
     <div class="foot-inner">
-      <p class="foot-line">Open to data science, ML, and BI roles in the Toronto area, in office or hybrid.</p>
-      <ul class="contact">
-        <li><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+      <p>Sushmita Behera, Toronto area</p>
+      <ul>
+        <li><a href="mailto:{{ site.author.email }}">Email</a></li>
         {% if site.author.linkedin != "" %}<li><a href="{{ site.author.linkedin }}">LinkedIn</a></li>{% endif %}
         <li><a href="{{ site.author.github }}">GitHub</a></li>
-        {% if resume_file %}<li><a href="{{ site.author.resume | relative_url }}">Resume (PDF)</a></li>{% endif %}
+        {% if resume_file %}<li><a href="{{ site.author.resume | relative_url }}">Resume</a></li>{% endif %}
       </ul>
     </div>
   </footer>
+
+  <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
 </body>
 </html>
