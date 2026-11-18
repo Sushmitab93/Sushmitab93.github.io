@@ -41,4 +41,30 @@
       }
     }, 500);
   }
+
+  // Email button: small panel with copy, Gmail and mail-app options
+  var eb = document.getElementById("email-btn");
+  var pop = document.getElementById("email-pop");
+  var status = document.getElementById("email-status");
+  function closePop() { if (pop && !pop.hidden) { pop.hidden = true; eb.setAttribute("aria-expanded", "false"); } }
+  if (eb && pop) {
+    eb.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var open = pop.hidden;
+      pop.hidden = !open;
+      eb.setAttribute("aria-expanded", open ? "true" : "false");
+      if (status) status.textContent = "";
+    });
+    pop.addEventListener("click", function (e) { e.stopPropagation(); });
+    document.addEventListener("click", closePop);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") { closePop(); eb.focus(); } });
+    var copy = document.getElementById("email-copy");
+    if (copy) copy.addEventListener("click", function () {
+      var addr = copy.getAttribute("data-email");
+      function done(ok) { if (status) status.textContent = ok ? "Copied to clipboard." : "Select the address above to copy it."; }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(addr).then(function () { done(true); }, function () { done(false); });
+      } else { done(false); }
+    });
+  }
 })();

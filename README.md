@@ -22,8 +22,9 @@ Source for https://sushmitab93.github.io. GitHub Pages builds it with Jekyll aut
 | Name, role, typing lines in the code window | `index.html` (the `data-lines` list holds the typing phrases) |
 | About text and photo | `index.html`; set `photo:` in `_config.yml` to show your photo instead of initials |
 | Tool logos | `_data/tools.yml` |
-| My journey timeline | `_data/journey.yml` (newest first; cards alternate left and right automatically) |
-| Contact form | Opens the visitor's email app addressed to the `email` in `_config.yml` |
+| Featured projects | Projects with `featured: true` in `_projects/` |
+| My journey timeline (career and education) | `_data/journey.yml` (newest first; cards alternate left and right automatically) |
+| Email button | Opens a small panel with Copy, Open in Gmail and Use mail app, using the `email` in `_config.yml` |
 
 The light/dark switch is in the header. The site follows the visitor's system setting until they choose.
 

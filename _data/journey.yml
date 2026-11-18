@@ -1,46 +1,19 @@
-# The "My journey" timeline on the homepage, newest first.
-# kind: Project or Work (Work cards get a filled dot).
-# link: where the card goes. link_label: the text at the bottom of the card.
+# The "My journey" timeline on the homepage: career path, newest first.
+# kind: Work or Education. link: where the card goes.
 
-- period: "Summer 2026"
-  kind: Project
-  context: "Ontario Tech University, capstone"
-  title: "Post-earnings stock movement forecasting"
-  tags: [Python, FinBERT, TabNet, Walk-forward validation]
+- period: "Sep 2025 to Sep 2026"
+  kind: Education
+  context: "Ontario Tech University"
+  title: "Master’s in Business Analytics and AI"
+  tags: [Machine learning, Deep learning, NLP, LLMs and RAG]
   summary: >-
-    Predicted the size of S&P 500 stock moves in the two weeks after earnings,
-    from about 24,000 events, combining price technicals, fundamentals and
-    earnings-call sentiment. 45.7% directional accuracy against a 33.2% baseline
-    across 20 walk-forward quarters. Team of three.
-  link: /projects/post-earnings-forecast/
-  link_label: Read case study
+    Moved from analysing data to building models with it. Capstone: a
+    multimodal model forecasting post-earnings stock movement, in a team
+    of three.
+  link: /experience/
+  link_label: See education
 
-- period: "2025 to 2026"
-  kind: Project
-  context: "Master’s project"
-  title: "Review insights with sentiment analysis and RAG"
-  tags: [PyTorch, DistilBERT, LangChain, Chroma]
-  summary: >-
-    Labeled 64,000+ Amazon review sentences by product feature and sentiment,
-    then built a RAG layer that answers plain-English questions with cited
-    sources. Filtering by the model's labels raised correct-sentiment retrieval
-    from 46% to 56%.
-  link: /projects/absa-rag/
-  link_label: Read case study
-
-- period: "2025 to 2026"
-  kind: Project
-  context: "Master’s project"
-  title: "Real-time disaster monitoring pipeline"
-  tags: [Kafka, PySpark, MongoDB, Docker]
-  summary: >-
-    Streamed live USGS, NASA and FEMA feeds through Kafka and Spark into
-    MongoDB, scored regional risk with an R² of 0.90, and flagged activity
-    spikes above 3x the normal rate on a live Streamlit dashboard.
-  link: /projects/disaster-monitoring/
-  link_label: Read case study
-
-- period: "2021 to 2025"
+- period: "Dec 2021 to Jul 2025"
   kind: Work
   context: "Gallagher"
   title: "Lead Specialist (CAT Systems Analyst)"
@@ -53,7 +26,7 @@
   link: /experience/
   link_label: See experience
 
-- period: "2016 to 2021"
+- period: "Jul 2016 to Dec 2021"
   kind: Work
   context: "AIG Analytics"
   title: "Senior Analyst"
