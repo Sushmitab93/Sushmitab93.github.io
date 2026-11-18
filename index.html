@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sushmita | Data Science, ML & Risk Analytics</title>
+<meta name="description" content="Portfolio of Sushmita: data scientist with 9 years in property insurance and reinsurance analytics, MBAI from Ontario Tech.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f7f5f0; --ink:#1c1f24; --muted:#5b6170; --line:#e2ddd2;
+    --accent:#0f6e6e; --accent-soft:#e3efed; --card:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#14171c; --ink:#ecebe6; --muted:#9aa1ad; --line:#2a2f37;
+           --accent:#4fb8b0; --accent-soft:#1d2a2b; --card:#1a1e24; }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:16px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px}
+
+  nav{position:sticky;top:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);z-index:10}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+  nav .logo{font-family:Fraunces,serif;font-weight:700;font-size:1.2rem;color:var(--ink)}
+  nav ul{display:flex;gap:22px;list-style:none;font-size:.92rem}
+  nav ul a{color:var(--muted)}
+  nav ul a:hover{color:var(--ink);text-decoration:none}
+
+  header{padding:96px 0 72px}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:.82rem;color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+  h1{font-family:Fraunces,serif;font-size:clamp(2.4rem,6vw,3.8rem);line-height:1.08;margin:14px 0 20px;font-weight:700}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:1.15rem;color:var(--muted);max-width:640px}
+  .cta{display:flex;gap:12px;margin-top:32px;flex-wrap:wrap}
+  .btn{padding:11px 20px;border-radius:8px;font-weight:600;font-size:.95rem;border:1px solid var(--accent)}
+  .btn.primary{background:var(--accent);color:var(--bg)}
+  .btn.ghost{color:var(--accent)}
+  .btn:hover{text-decoration:none;opacity:.9}
+
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:56px}
+  .stat{border-top:2px solid var(--accent);padding-top:12px}
+  .stat b{font-family:Fraunces,serif;font-size:1.8rem;display:block}
+  .stat span{color:var(--muted);font-size:.9rem}
+
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  h2{font-family:Fraunces,serif;font-size:2rem;margin-bottom:8px}
+  .sub{color:var(--muted);margin-bottom:36px}
+
+  .projects{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;transition:transform .15s,border-color .15s}
+  .card:hover{transform:translateY(-3px);border-color:var(--accent)}
+  .card .tag{font-family:"JetBrains Mono",monospace;font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.05em}
+  .card h3{font-size:1.12rem;margin:8px 0 10px;line-height:1.35}
+  .card p{color:var(--muted);font-size:.93rem;flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0}
+  .chip{font-family:"JetBrains Mono",monospace;font-size:.72rem;background:var(--accent-soft);color:var(--ink);padding:3px 8px;border-radius:4px}
+  .card .links{font-size:.9rem;font-weight:600}
+
+  .timeline{display:grid;gap:28px}
+  .item{display:grid;grid-template-columns:180px 1fr;gap:24px}
+  .item .when{font-family:"JetBrains Mono",monospace;font-size:.85rem;color:var(--muted)}
+  .item h3{font-size:1.08rem}
+  .item p{color:var(--muted)}
+
+  .skills{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:24px}
+  .skills h4{font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:10px}
+  .skills ul{list-style:none;color:var(--muted);font-size:.95rem}
+  .skills li{padding:2px 0}
+
+  .contact{text-align:center}
+  .contact .lede{margin:0 auto 28px}
+  .contact .cta{justify-content:center}
+  footer{padding:32px 0;text-align:center;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+
+  @media (max-width:640px){
+    nav ul{display:none}
+    .stats{grid-template-columns:1fr}
+    .item{grid-template-columns:1fr;gap:4px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#">Sushmita</a>
+    <ul>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Data Science · Machine Learning · Risk Analytics</div>
+    <h1>Turning risk data into <em>decisions</em>.</h1>
+    <p class="lede">
+      I spent nine years working with property insurance and reinsurance data at AIG and Gallagher,
+      supporting pricing, underwriting and risk decisions. Now, with a Master's in Business Analytics
+      and AI from Ontario Tech, I build machine learning and NLP systems end to end.
+      Based in the Toronto area.
+    </p>
+    <div class="cta">
+      <a class="btn primary" href="#projects">View projects</a>
+      <a class="btn ghost" href="https://github.com/Sushmitab93" target="_blank" rel="noopener">GitHub</a>
+      <!-- TODO: put your resume PDF in the repo as resume.pdf -->
+      <a class="btn ghost" href="resume.pdf" target="_blank">Resume</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>9 yrs</b><span>Property insurance &amp; reinsurance data</span></div>
+      <div class="stat"><b>MBAI</b><span>Business Analytics &amp; AI, Ontario Tech</span></div>
+      <div class="stat"><b>ML · NLP</b><span>Streaming pipelines, transformers, forecasting</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="wrap">
+    <h2>Projects</h2>
+    <p class="sub">Selected work in machine learning, NLP and data engineering.</p>
+    <div class="projects">
+
+      <article class="card">
+        <span class="tag">Capstone · Ontario Tech</span>
+        <h3>Post-Earnings Stock Movement Forecasting</h3>
+        <p>A multimodal ML framework that forecasts 2-week stock movement after earnings announcements (PEAD),
+           combining financial features with FinBERT sentiment from earnings text and deep learning models,
+           evaluated with walk-forward validation. Built in a team of three.</p>
+        <div class="chips"><span class="chip">Python</span><span class="chip">FinBERT</span><span class="chip">NLP</span><span class="chip">Deep Learning</span><span class="chip">Walk-forward CV</span></div>
+        <div class="links"><a href="https://github.com/Richard-X46/Post-Earnings-Forecast" target="_blank" rel="noopener">View repo →</a></div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Data Engineering · ML</span>
+        <h3>Real-Time Disaster Monitoring Pipeline</h3>
+        <p>A streaming pipeline that ingests disaster event data through Kafka, processes it with PySpark,
+           stores it in MongoDB, and flags patterns with Random Forest, KMeans clustering and anomaly detection,
+           served through a Streamlit dashboard. Containerized with Docker.</p>
+        <div class="chips"><span class="chip">Kafka</span><span class="chip">PySpark</span><span class="chip">MongoDB</span><span class="chip">Docker</span><span class="chip">Streamlit</span></div>
+        <!-- TODO: replace with the exact repo URL -->
+        <div class="links"><a href="https://github.com/Sushmitab93" target="_blank" rel="noopener">View repo →</a></div>
+      </article>
+
+      <article class="card">
+        <span class="tag">NLP · Web App</span>
+        <h3>Reddit Opinion Mining</h3>
+        <p>A Flask web app that analyzes Reddit sentiment in real time using BERT and GPT-3.5,
+           backed by PostgreSQL and deployed on AWS Lightsail with Docker and GitHub Actions CI/CD,
+           including rate limiting and CSRF/SSL security.</p>
+        <div class="chips"><span class="chip">PyTorch</span><span class="chip">BERT</span><span class="chip">GPT-3.5</span><span class="chip">Flask</span><span class="chip">AWS</span><span class="chip">CI/CD</span></div>
+        <!-- TODO: replace with the exact repo URL -->
+        <div class="links"><a href="https://github.com/Sushmitab93" target="_blank" rel="noopener">View repo →</a></div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Forecasting</span>
+        <h3>TSX Market EDA &amp; Forecasting</h3>
+        <p>Exploratory analysis and forecasting across TSX/TSXV equities, crypto and commodities, comparing
+           XGBoost, LSTM and ARIMA models, with data from Alpha Vantage and StockAnalysis APIs stored in SQLite
+           and interactive Plotly/Panel dashboards.</p>
+        <div class="chips"><span class="chip">XGBoost</span><span class="chip">LSTM</span><span class="chip">ARIMA</span><span class="chip">SQLite</span><span class="chip">Plotly</span></div>
+        <!-- TODO: replace with the exact repo URL -->
+        <div class="links"><a href="https://github.com/Sushmitab93" target="_blank" rel="noopener">View repo →</a></div>
+      </article>
+
+      <article class="card">
+        <span class="tag">NLP</span>
+        <h3>Aspect-Based Sentiment Analysis</h3>
+        <p>Fine-tuned DistilBERT to pull aspect-level sentiment (battery, screen, price and more) from
+           Amazon electronics reviews, comparing TensorFlow/Keras and PyTorch implementations.</p>
+        <div class="chips"><span class="chip">DistilBERT</span><span class="chip">TensorFlow</span><span class="chip">PyTorch</span></div>
+        <!-- TODO: replace with the exact repo URL -->
+        <div class="links"><a href="https://github.com/Sushmitab93" target="_blank" rel="noopener">View repo →</a></div>
+      </article>
+
+      <article class="card">
+        <span class="tag">Quant · ML</span>
+        <h3>Trading Strategies vs. Top Mutual Funds</h3>
+        <p>Backtested technical-indicator trading strategies against leading mutual funds, using
+           Random Forest and XGBoost to generate signals from yfinance market data.</p>
+        <div class="chips"><span class="chip">yfinance</span><span class="chip">pandas</span><span class="chip">Random Forest</span><span class="chip">XGBoost</span></div>
+        <!-- TODO: replace with the exact repo URL -->
+        <div class="links"><a href="https://github.com/Sushmitab93" target="_blank" rel="noopener">View repo →</a></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <h2>Experience &amp; Education</h2>
+    <p class="sub">Domain depth in insurance risk, plus formal training in AI.</p>
+    <div class="timeline">
+      <div class="item">
+        <div class="when"><!-- TODO: dates -->2026</div>
+        <div>
+          <h3>Master's in Business Analytics &amp; AI, Ontario Tech University</h3>
+          <p>Machine learning, deep learning, NLP and analytics; capstone on multimodal post-earnings forecasting.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="when"><!-- TODO: dates -->Gallagher</div>
+        <div>
+          <h3><!-- TODO: title -->Property Insurance &amp; Reinsurance Data</h3>
+          <p>Worked with property and reinsurance data to support pricing, underwriting and risk decisions.</p>
+        </div>
+      </div>
+      <div class="item">
+        <div class="when"><!-- TODO: dates -->AIG</div>
+        <div>
+          <h3><!-- TODO: title -->Property Insurance Data</h3>
+          <p>Worked with property insurance data supporting pricing and underwriting.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <h2>Skills</h2>
+    <p class="sub">Tools I've used across these projects and roles.</p>
+    <div class="skills">
+      <div><h4>Languages &amp; Data</h4><ul><li>Python, SQL</li><li>pandas, NumPy</li><li>SQL Server, PostgreSQL, MongoDB, SQLite</li></ul></div>
+      <div><h4>Machine Learning</h4><ul><li>scikit-learn, XGBoost</li><li>TensorFlow / Keras, PyTorch</li><li>ARIMA, LSTM, anomaly detection</li></ul></div>
+      <div><h4>NLP &amp; GenAI</h4><ul><li>BERT, DistilBERT, FinBERT</li><li>OpenAI GPT</li><li>Sentiment analysis</li></ul></div>
+      <div><h4>Engineering</h4><ul><li>Kafka, PySpark</li><li>Docker, GitHub Actions</li><li>Flask, Streamlit, AWS</li></ul></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2>Let's talk</h2>
+    <p class="lede">Open to data science, ML/AI, and analytics roles in the Toronto area, in office or hybrid.</p>
+    <div class="cta">
+      <!-- TODO: replace with your email and LinkedIn -->
+      <a class="btn primary" href="mailto:you@example.com">Email me</a>
+      <a class="btn ghost" href="https://www.linkedin.com/in/your-profile" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn ghost" href="https://github.com/Sushmitab93" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Sushmita · Built with GitHub Pages</footer>
+
+</body>
+</html>
