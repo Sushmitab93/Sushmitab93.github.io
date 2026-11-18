@@ -8,8 +8,8 @@
   tags: [Machine learning, Deep learning, NLP, LLMs and RAG]
   summary: >-
     Moved from analysing data to building models with it. Capstone: a
-    multimodal model forecasting post-earnings stock movement, in a team
-    of three.
+    multimodal framework predicting post-earnings stock moves from 24,000+
+    earnings events, with a backtested Sharpe ratio of 2.3, in a team of three.
   link: /experience/
   link_label: See education
 

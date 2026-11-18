@@ -2,15 +2,15 @@
 title: Forecasting post-earnings stock movement
 order: 1
 featured: true
-image: /assets/img/pead_workflow.png
+image: /assets/img/pead_drift.png
 summary: >-
-  A multimodal model that predicts how far an S&P 500 stock will run in the two
-  weeks after an earnings announcement, using price technicals, fundamentals and
-  FinBERT sentiment from earnings calls. Capstone project, team of three.
-problem: Can earnings-time data predict the size of a stock's move over the following two weeks?
-role: Capstone team member (team of 3), Ontario Tech MBAI 5600G, Summer 2026
-result: 45.7% directional accuracy across 20 walk-forward folds, against a 33.2% baseline
-stack: [Python, polars, FinBERT, Transformers, TabNet, TensorFlow, XGBoost, AWS S3, Delta Lake, Modal, Quarto, Docker]
+  A multimodal machine learning framework that predicts how far S&P 500 stocks
+  move in the two weeks after earnings, from 24,000+ earnings events, then turns
+  the predictions into a backtested trading strategy. Capstone project, team of three.
+problem: Can earnings-time data identify which stocks will keep drifting after an earnings announcement?
+role: Capstone team member (team of 3), Ontario Tech MBAI 5600G, Summer 2026. Advisor, Prof. Amin Ibrahim
+result: Backtested Sharpe ratio of 2.3 over five years of walk-forward testing, before trading costs
+stack: [Python, Polars, TA-Lib, FinBERT, PyTorch, TabNet, scikit-learn, XGBoost, Optuna, AWS S3, Delta Lake]
 code: https://github.com/Richard-X46/Post-Earnings-Forecast
 demo: https://richard-pears.dev/pead-report/
 demo_label: Interactive report
@@ -18,73 +18,129 @@ demo_label: Interactive report
 
 ## The business problem
 
-After a company reports earnings, its stock often keeps drifting in the same
-direction for days. This is known as post-earnings announcement drift (PEAD).
-If you can estimate how big that move is likely to be, you can size positions
-and set take-profit levels with more confidence.
+After a company reports earnings, its stock often keeps moving in the same
+direction for days or weeks. This is called post-earnings announcement drift
+(PEAD), and it's one of the best-documented anomalies in finance. Traders
+usually spot it by judgment or a single rule of thumb, such as how much a
+company beat its earnings estimate.
 
-We framed it as a practical question: in the nine trading days after an
-earnings event, how high will the stock's intraday price peak? Each event was
-put into one of three classes: a low move (under 2%), a moderate move (2 to 4%)
-or a strong move (4% or more).
+We set out to replace that with a systematic, auditable signal: for every
+S&P 500 earnings event, predict how strong the move will be over the next two
+weeks, then test whether trading on those predictions would actually make money.
 
-## Data
+## The data
 
-- About **24,000 earnings events** across roughly **500 S&P 500 companies**
-- Daily prices and volume, used to build technical indicators
-- Quarterly fundamentals (income statement, balance sheet, cash flow)
-- Earnings call transcripts scored with **FinBERT**, a finance-tuned language model
-- News sentiment, analyst upgrades and downgrades, sector, and market context (VIX, S&P 500)
+- **24,132 earnings events** across 503 S&P 500 companies, from 2014 to 2025
+- **257 features** per event
+- **Sources:** Alpha Vantage for fundamentals, earnings surprise, call transcripts and news sentiment; Yahoo Finance for daily prices
 
-Raw data landed in AWS S3 as Delta Lake tables and was processed with polars.
+Each event combines four kinds of information: technical indicators across
+the 12 trading days around the announcement, company fundamentals, FinBERT
+sentiment from the earnings-call transcript, and news sentiment. Raw data was
+stored as Delta Lake tables on AWS S3 and processed with Polars.
 
-![Project workflow]({{ '/assets/img/pead_workflow.png' | relative_url }})
-*The pipeline, from ingestion through feature engineering, modeling and a replayed trading strategy.*
+The data needed real cleaning decisions. About 47% of events had no news
+coverage, so missing sentiment was filled from the same sector and year rather
+than with one global value. Unbounded accounting ratios were capped, and
+features that were near-duplicates of each other were removed. Every
+imputation and scaling step was fit only on past data, to avoid leaking the
+future into training.
+
+## First, is the effect real?
+
+![Post-earnings drift for beats and misses]({{ '/assets/img/pead_drift.png' | relative_url }})
+*Average price path around earnings for 16,893 beats and 6,113 misses. The two groups split at the announcement and never come back together.*
+
+Yes. Stocks that beat estimates kept rising, from +1.15% the day after to
++1.98% ten days later. Misses dropped 1.56% and only partly recovered. That
+sustained gap is exactly what PEAD theory predicts, which made it worth
+modeling.
 
 ## Approach
 
-Financial data leaks easily: train on the future and test on the past, and
-results look far better than they will be in real use. To prevent that, every
-model was evaluated with **expanding-window walk-forward validation**. We
-trained on all quarters up to a point, tested on the next quarter, and repeated
-this for 20 quarters from 2021 Q1 to 2025 Q4.
+![Model pipeline]({{ '/assets/img/pead_pipeline.png' | relative_url }})
+*Three feature groups are combined into one table, then feed two separate experiments: a tree-model ablation ladder and the deep learning models.*
 
-We compared two main models:
+We framed the target as the stock's peak return over the nine trading days
+after the announcement, sorted into three classes: low (under 2%),
+moderate (2 to 4%) or strong (4% or more). Then we built up in stages:
 
-- **TabNet**, an attention-based deep learning model for tabular data, trained on GPU through Modal
-- A **multitask deep neural network** that predicts the size of the move and its class together
+1. **Reproduced a published baseline.** We rebuilt the LSTM, BiLSTM and
+   CNN-LSTM models from Hajek et al. (2025), the closest prior study, to check
+   our pipeline against known results.
+2. **Measured what each data source adds.** Random Forest and XGBoost were
+   trained four times, adding one data source each time: technical indicators,
+   then fundamentals, then transcript sentiment, then news sentiment.
+3. **Built two advanced models.** A multi-task neural network predicts the
+   class and the size of the move at the same time from a shared encoder.
+   TabNet, an attention-based model, shows which features drive each
+   prediction.
 
-Ablation runs measured how much each feature group (technicals, fundamentals,
-sentiment) added.
+Financial data makes it easy to fool yourself, so every model was tested with
+**walk-forward validation**: train only on the past, test on the next quarter,
+and repeat across 16 to 20 quarters from 2021 to 2025. Hyperparameters were
+tuned with Optuna in the same time-respecting way.
 
 ## Results
 
-Directional accuracy is the share of events where the predicted class matched
-what happened. Always guessing the most common class scores 33.2%.
+| Model | Accuracy (3 classes) |
+|---|---|
+| Random guessing | 33.3% |
+| Random Forest, all features | 44.9% |
+| TabNet | 44.5% |
+| Multi-task neural network | 45.7% |
 
-| Model | Mean directional accuracy | Mean absolute error | Best quarter |
-|---|---|---|---|
-| TabNet (initial) | 43.7% | 0.0313 | 70.2% (2022 Q4) |
-| TabNet (updated) | 45.0% | 0.0303 | 69.0% (2022 Q4) |
-| Multitask DNN | 45.7% | 0.0296 | 70.0% (2022 Q4) |
+Two findings stood out.
 
-We then replayed the TabNet signals as a simple strategy: buy the predicted
-moderate and strong movers at the next close and exit at a take-profit level or
-after ten days. On a $50,000 book, the best setting returned **$12,138 with a
-Sharpe ratio of 2.33** and was profitable in every full year.
+**Extra data sources barely helped.** Adding fundamentals, transcript sentiment
+and news sentiment on top of technical indicators left accuracy almost flat
+in both tree models.
 
-> This backtest ignores transaction costs and slippage, and the take-profit level
-> was chosen on the same evaluation period. It shows the signal has value; it is
-> not a claim of real trading returns.
+**The models were learning volatility.** TabNet's attention showed that 92.5%
+of what it relied on came from technical and volatility features. Its single
+most-used feature was volatility the day after the announcement, not anything
+from the earnings report itself.
+
+![TabNet feature attention]({{ '/assets/img/pead_attention.png' | relative_url }})
+*TabNet's top 30 features for the final quarter. Post-event volatility (atr_t+1) dominates.*
+
+Even so, the predictions ranked stocks correctly on average: stocks predicted
+"strong" did move more than those predicted "low" (4.5% against 2.6% for the
+neural network).
+
+## Does it make money?
+
+We replayed the signals as a simple strategy: buy stocks predicted to move
+moderately or strongly at the close the day after earnings, $200 per trade
+from a $50,000 account, and sell at a take-profit level or after ten days.
+
+![Equity curve across take-profit levels]({{ '/assets/img/pead_equity.png' | relative_url }})
+*Account value from 2021 to 2025 at each take-profit level tested. The highlighted line is the 5% level.*
+
+| | Neural network | TabNet |
+|---|---|---|
+| Profit over 5 years | $11,953 | $12,138 |
+| Sharpe ratio | 2.31 | 2.33 |
+| Return on account | 23.9% | 24.3% |
+| Profitable quarters | 14 of 20 | 14 of 20 |
+
+Most losses came from one quarter, 2022 Q2, during a broad market drawdown.
+Adding a 1% stop-loss cut the worst drawdown to about 1% but also cut profit
+roughly in half, a trade-off we presented to the decision-maker rather than
+choosing for them.
+
+> These results exclude trading costs and slippage, and the data covers only
+> companies still in the S&P 500 today. They show the signal has value; they
+> are not a promise of live returns.
+
+## What we recommended
+
+- Run a monitored paper-trading pilot, not live capital, until trading costs are included.
+- Prefer TabNet if decisions need to be explained, since it shows what drives each prediction.
+- Redefine the target, or add intraday data, so the models learn from earnings content rather than mostly from volatility.
 
 ## My contribution
 
 <p class="todo">TODO: Describe the parts you personally owned, in two or three sentences
-(for example, which features, models, analysis or report sections were yours).
+(for example, which data sources, models, analysis or report sections were yours).
 Delete this box when you're done.</p>
-
-## What I would do next
-
-- Add realistic transaction costs and compare against simply holding the S&P 500
-- Add confidence intervals so results across quarters can be compared fairly
-- Test whether the weakest quarters share a market regime the model could detect

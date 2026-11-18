@@ -24,7 +24,7 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-head">
     <div class="head-inner">
-      <a class="wordmark" href="{{ '/' | relative_url }}">Sushmita Behera</a>
+      <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="Sushmita Behera, home"><span class="monogram" aria-hidden="true">SB</span>{% if page.url != "/" %}<span class="wm-name">Sushmita Behera</span>{% endif %}</a>
       <nav aria-label="Main">
         <a href="{{ '/projects/' | relative_url }}"{% if section == "projects" %} aria-current="page"{% endif %}>Projects</a>
         <a href="{{ '/experience/' | relative_url }}"{% if section == "experience" %} aria-current="page"{% endif %}>Experience</a>
