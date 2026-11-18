@@ -10,7 +10,8 @@ author:
   name: Sushmita Behera
   location: Oshawa, Ontario (Toronto area)
   email: "beherasushmita93@gmail.com"
-  linkedin: "https://www.linkedin.com/in/sushmitabehera21"   
+  linkedin: ""   # TODO: paste your LinkedIn URL, e.g. https://www.linkedin.com/in/your-name
+  github: "https://github.com/Sushmitab93"
   resume: "/assets/Sushmita_Behera_Resume.pdf"  # links appear once this PDF exists
 
 collections:

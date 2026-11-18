@@ -20,7 +20,7 @@ Source for https://sushmitab93.github.io. GitHub Pages builds it with Jekyll aut
 | Page | File |
 |---|---|
 | Home (intro and 3 featured projects) | `index.html` |
-| Work (all projects) | `work.html` |
+| Projects (all projects) | `projects.html` |
 | Experience | `experience.html` |
 | Skills | `skills.html` |
 | Writing | `writing.html` |
@@ -33,7 +33,7 @@ Copy any file in `_projects/`, rename it, and edit the details at the top:
 | Field | What it's for |
 |---|---|
 | `order` | Position on the homepage and in previous/next links |
-| `featured` | `true` shows it on the homepage and at the top of the Work page with an image; `false` lists it under More projects |
+| `featured` | `true` shows it on the homepage and at the top of the Projects page with an image; `false` lists it under More projects |
 | `image` | Image for featured projects, stored in `assets/img/` |
 | `summary`, `problem`, `role`, `result`, `stack` | The project card and the summary box on its page |
 | `code`, `demo` | GitHub link, plus an optional demo link (`demo_label` changes its text) |

@@ -5,16 +5,11 @@ layout: default
 
 <section class="hero">
   <div class="hero-text">
-    <h1>I spent nine years modeling the rare, expensive events. Now I build the machine learning.</h1>
-    <p class="hero-sub">
-      At AIG and Gallagher I turned property catastrophe and reinsurance data into
-      pricing, underwriting and risk decisions. After a Master’s in Business Analytics
-      and AI at Ontario Tech, I build machine learning models, NLP systems and data
-      pipelines, with the same focus on what a number means for the business.
-    </p>
+    <h1>A number can look perfectly reasonable and still be wrong. I find out why.</h1>
+    <p class="hero-sub">Nine years turning complex data into decisions. Now building machine learning models, NLP systems and data pipelines.</p>
     {% assign resume_file = site.static_files | where: "path", site.author.resume | first %}
     <p class="actions">
-      <a class="btn" href="{{ '/work/' | relative_url }}">See my work</a>
+      <a class="btn" href="{{ '/projects/' | relative_url }}">See my projects</a>
       {% if resume_file %}<a class="btn quiet" href="{{ site.author.resume | relative_url }}">Download resume</a>{% endif %}
       {% if site.author.linkedin != "" %}<a class="btn quiet" href="{{ site.author.linkedin }}">LinkedIn</a>{% endif %}
       <a class="btn quiet" href="{{ site.author.github }}">GitHub</a>
@@ -48,8 +43,7 @@ layout: default
       </g>
     </svg>
     <figcaption>
-      An exceedance probability curve, the chart behind every property catastrophe
-      program I modeled in RMS and AIR. Most of my career has been spent on the right side of it.
+      An exceedance probability curve, the kind of model output I spent years validating and explaining.
     </figcaption>
   </figure>
 </section>
@@ -57,7 +51,7 @@ layout: default
 <section class="work" aria-labelledby="work-h">
   <div class="section-head">
     <h2 id="work-h">Selected work</h2>
-    <a class="see-all" href="{{ '/work/' | relative_url }}">See all {{ site.projects.size }} projects</a>
+    <a class="see-all" href="{{ '/projects/' | relative_url }}">See all {{ site.projects.size }} projects</a>
   </div>
 
   <ol class="featured">
@@ -81,5 +75,5 @@ layout: default
   {% endif %}{% endfor %}
   </ol>
 
-  <p class="actions center-end"><a class="btn" href="{{ '/work/' | relative_url }}">See all projects</a></p>
+  <p class="actions center-end"><a class="btn" href="{{ '/projects/' | relative_url }}">See all projects</a></p>
 </section>
