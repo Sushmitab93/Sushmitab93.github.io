@@ -1,0 +1,33 @@
+title: Sushmita Behera
+description: >-
+  Data and ML portfolio. Nine years of property catastrophe and reinsurance
+  analytics at AIG and Gallagher, now building machine learning and data pipelines.
+url: "https://sushmitab93.github.io"
+baseurl: ""
+
+# Your details. Edit these and every page updates.
+author:
+  name: Sushmita Behera
+  location: Oshawa, Ontario (Toronto area)
+  email: "your.email@example.com"            # TODO: your email
+  linkedin: "https://www.linkedin.com/in/your-profile"   # TODO: your LinkedIn URL
+  github: "https://github.com/Sushmitab93"
+  resume: "/assets/Sushmita_Behera_Resume.pdf"  # TODO: add this PDF to /assets
+
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
+
+defaults:
+  - scope: { path: "", type: projects }
+    values: { layout: project }
+  - scope: { path: "", type: posts }
+    values: { layout: post }
+
+permalink: /writing/:title/
+markdown: kramdown
+kramdown:
+  input: GFM
+
+exclude: [README.md, preview_build.py]

@@ -1,0 +1,41 @@
+---
+layout: default
+---
+{% assign sorted = site.projects | sort: "order" %}
+{% for p in sorted %}{% if p.url == page.url %}{% assign idx = forloop.index0 %}{% endif %}{% endfor %}
+{% assign prev_i = idx | minus: 1 %}
+{% assign next_i = idx | plus: 1 %}
+
+<article class="case">
+  <header class="case-head">
+    <p class="crumb"><a href="{{ '/#work' | relative_url }}">All projects</a></p>
+    <h1>{{ page.title }}</h1>
+    <p class="case-lede">{{ page.summary }}</p>
+  </header>
+
+  <aside class="facts" aria-label="Project summary">
+    <dl>
+      <div><dt>Problem</dt><dd>{{ page.problem }}</dd></div>
+      <div><dt>Role</dt><dd>{{ page.role }}</dd></div>
+      <div><dt>Headline result</dt><dd>{{ page.result }}</dd></div>
+      <div><dt>Stack</dt><dd>{{ page.stack | join: ", " }}</dd></div>
+    </dl>
+    <p class="actions">
+      <a class="btn" href="{{ page.code }}">View the code</a>
+      {% if page.demo %}<a class="btn quiet" href="{{ page.demo }}">{{ page.demo_label | default: "Live demo" }}</a>{% endif %}
+    </p>
+  </aside>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <nav class="pager" aria-label="More projects">
+    {% if idx > 0 %}{% assign pp = sorted[prev_i] %}
+      <a class="prev" href="{{ pp.url | relative_url }}"><span>Previous</span>{{ pp.title }}</a>
+    {% else %}<span></span>{% endif %}
+    {% if next_i < sorted.size %}{% assign np = sorted[next_i] %}
+      <a class="next" href="{{ np.url | relative_url }}"><span>Next</span>{{ np.title }}</a>
+    {% endif %}
+  </nav>
+</article>

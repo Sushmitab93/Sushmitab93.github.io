@@ -1,30 +1,43 @@
-# Sushmita Behera
+# Sushmita Behera, portfolio
 
-Data Analytics · Machine Learning · AI
+Source for https://sushmitab93.github.io. GitHub Pages builds it with Jekyll automatically, so you don't need to install anything.
 
-Graduate student in Business Analytics and AI at Ontario Tech University with 8+ years of experience in analytics pipeline development, SQL optimization, data validation, and reporting automation.
+## Publish it
 
-📄 [View Resume](Sushmita_Resume.pdf)  ·  [LinkedIn](https://www.linkedin.com/in/sushmitabehera21/)  ·  [GitHub](https://github.com/Sushmitab93)
+1. Create a public repo named exactly `Sushmitab93.github.io`.
+2. Upload everything in this folder to the repo's main branch (on GitHub: **Add file > Upload files**, then drag the folder contents in).
+3. In the repo, go to **Settings > Pages** and check that the source is "Deploy from a branch", branch `main`, folder `/ (root)`.
+4. After a minute or two, the site is live at https://sushmitab93.github.io.
 
+## Before you publish
+
+- `_config.yml`: add your email and LinkedIn URL.
+- Add your resume as `assets/Sushmita_Behera_Resume.pdf`.
+- `_projects/post-earnings-forecast.md`: fill in the "My contribution" box.
+
+## Add a project
+
+Copy any file in `_projects/`, rename it, and edit the details at the top:
+
+| Field | What it's for |
+|---|---|
+| `order` | Position on the homepage and in previous/next links |
+| `featured` | `true` puts it in Selected work with an image; `false` puts it in More projects |
+| `image` | Image for featured projects, stored in `assets/img/` |
+| `summary`, `problem`, `role`, `result`, `stack` | The project card and the summary box on its page |
+| `code`, `demo` | GitHub link, plus an optional demo link (`demo_label` changes its text) |
+
+Write the case study below the second `---` in Markdown.
+
+## Add a blog post
+
+Create a file in `_posts/` named like `2026-12-01-my-post-title.md`:
+
+```
 ---
-
-## Projects
-
-### [Disaster Monitoring Pipeline](https://github.com/Sushmitab93/DisasterMonitoring)
-Architected a real-time disaster monitoring pipeline using Kafka for event ingestion, Spark (PySpark) for stream processing, and MongoDB for storage, all containerized with Docker. Trained ML models (Random Forest, KMeans, anomaly detection) for risk scoring, regional clustering, and spike event detection, and surfaced insights through an interactive Streamlit dashboard.
-
-### [Aspect-Based Sentiment Analysis](https://github.com/Sushmitab93/AspectBasedSentimentAnalysis)
-Built a modular ABSA pipeline using DistilBERT embeddings (HuggingFace Transformers) and custom deep neural networks (TensorFlow/Keras, PyTorch) to classify product aspects and sentiment polarity, validated through confidence analysis and per-aspect confusion matrix evaluation.
-
-### [Trading Strategies vs. Mutual Funds](https://github.com/Sushmitab93/Stock-Trading-Strategies-Performance)
-Developed and backtested 11 technical indicator-based trading strategies across 4 categories, benchmarking risk-adjusted returns against top mutual funds through Sharpe ratio, max drawdown, and cumulative return analysis.
-
+title: My post title
 ---
+Your post in Markdown.
+```
 
-## Skills
-
-**Programming:** SQL, Python (pandas, NumPy, Polars, scikit-learn, XGBoost, PyTorch, TensorFlow/Keras, HuggingFace Transformers, LLMs, PySpark)
-
-**Data Tools:** Tableau, Power BI, Streamlit, Git
-
-**Data Engineering:** Apache Kafka, Apache Spark, Delta Lake, MongoDB, Docker, AWS S3
+A Writing section appears on the homepage automatically once the first post exists.

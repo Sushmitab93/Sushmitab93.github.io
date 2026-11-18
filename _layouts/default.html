@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{% if page.summary %}{{ page.summary }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-head">
+    <a class="wordmark" href="{{ '/' | relative_url }}">Sushmita Behera</a>
+    <nav aria-label="Main">
+      <a href="{{ '/#work' | relative_url }}">Work</a>
+      <a href="{{ '/#experience' | relative_url }}">Experience</a>
+      {% if site.posts.size > 0 %}<a href="{{ '/#writing' | relative_url }}">Writing</a>{% endif %}
+      <a href="{{ site.author.resume | relative_url }}">Resume</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    {{ content }}
+  </main>
+
+  <footer class="site-foot" id="contact">
+    <div class="foot-inner">
+      <p class="foot-line">Open to data science, ML, and BI roles in the Toronto area, in office or hybrid.</p>
+      <ul class="contact">
+        <li><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></li>
+        <li><a href="{{ site.author.linkedin }}">LinkedIn</a></li>
+        <li><a href="{{ site.author.github }}">GitHub</a></li>
+        <li><a href="{{ site.author.resume | relative_url }}">Resume (PDF)</a></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>
